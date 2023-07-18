@@ -24,3 +24,6 @@ yarn-error.log*
 
 # temp files
 /temp
+
+# Snapshots for testing
+/src/__snapshots__
