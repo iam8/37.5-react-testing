@@ -32,7 +32,6 @@ it("Works when you click on the left arrow", () => {
     const rightArrow = getByTestId("right-arrow");
     fireEvent.click(rightArrow);
 
-    // Check that second image is shown and not the first
     expect(getByAltText("testing image 2")).toBeInTheDocument();
     expect(queryByAltText("testing image 1")).not.toBeInTheDocument();
 
@@ -40,7 +39,6 @@ it("Works when you click on the left arrow", () => {
     const leftArrow = getByTestId("left-arrow");
     fireEvent.click(leftArrow);
 
-    // Check that first image is shown and not the second
     expect(getByAltText("testing image 1")).toBeInTheDocument();
     expect(queryByAltText("testing image 2")).not.toBeInTheDocument();
 });
@@ -76,19 +74,18 @@ it("works when you click on the right arrow", function() {
 
 
 it("Hides left arrow when current image is the first in list", () => {
-    const {queryByTestId, getByAltText} = render(
+    const {queryByTestId, getByAltText, getByTestId} = render(
         <Carousel
             photos={TEST_IMAGES}
             title="images for testing"
         />
     );
 
-    // Check that the first image is shown
+    // Check that first image is shown
     expect(getByAltText("testing image 1")).toBeInTheDocument();
 
-    // Check that right arrow is present but left arrow is not
     expect(queryByTestId("left-arrow")).not.toBeInTheDocument();
-    expect(queryByTestId("right-arrow")).toBeInTheDocument();
+    expect(getByTestId("right-arrow")).toBeInTheDocument();
 });
 
 
@@ -100,7 +97,6 @@ it("Hides right arrow when current image is the last in list", () => {
         />
     );
 
-    // Check that the first image is shown initially
     expect(getByAltText("testing image 1")).toBeInTheDocument();
 
     // Move to final image in list
@@ -112,7 +108,6 @@ it("Hides right arrow when current image is the last in list", () => {
     // Check that final image is shown
     expect(getByAltText(`testing image ${numImages}`)).toBeInTheDocument();
 
-    // Check that left arrow is present but right arrow is not
     expect(rightArrow).not.toBeInTheDocument();
     expect(queryByTestId("left-arrow")).toBeInTheDocument();
 });
