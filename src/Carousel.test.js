@@ -6,10 +6,7 @@ import { render, fireEvent } from "@testing-library/react";
 import Carousel from "./Carousel";
 import TEST_IMAGES from "./_testCommon.js";
 
-const testImg1 = TEST_IMAGES[0];
-const testImg2 = TEST_IMAGES[1];
-const testImg3 = TEST_IMAGES[2];
-const totalNum = TEST_IMAGES.length;
+const numImages = TEST_IMAGES.length;
 
 
 it("Renders without crashing", () => {
@@ -103,8 +100,6 @@ it("Hides right arrow when current image is the last in list", () => {
         />
     );
 
-    const numImages = TEST_IMAGES.length;
-
     // Check that the first image is shown initially
     expect(getByAltText("testing image 1")).toBeInTheDocument();
 
@@ -118,7 +113,6 @@ it("Hides right arrow when current image is the last in list", () => {
     expect(getByAltText(`testing image ${numImages}`)).toBeInTheDocument();
 
     // Check that left arrow is present but right arrow is not
-    console.log("A log here!!!!");
     expect(rightArrow).not.toBeInTheDocument();
     expect(queryByTestId("left-arrow")).toBeInTheDocument();
 });
