@@ -108,11 +108,21 @@ it("Hides right arrow when current image is the last in list", () => {
     // Check that final image is shown
     expect(getByAltText(`testing image ${numImages}`)).toBeInTheDocument();
 
-    expect(rightArrow).not.toBeInTheDocument();
+    expect(queryByTestId("right-arrow")).not.toBeInTheDocument();
     expect(queryByTestId("left-arrow")).toBeInTheDocument();
 });
 
 
-// it("Hides both arrows when only one image in list", () => {
+it("Hides both arrows when only one image in list", () => {
+    const {queryByTestId, getByAltText} = render(
+        <Carousel
+            photos={[TEST_IMAGES[0]]}
+            title="images for testing"
+        />
+    );
 
-// });
+    expect(getByAltText("testing image 1")).toBeInTheDocument();
+
+    expect(queryByTestId("left-arrow")).not.toBeInTheDocument();
+    expect(queryByTestId("right-arrow")).not.toBeInTheDocument();
+});
