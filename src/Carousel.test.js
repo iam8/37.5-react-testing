@@ -18,8 +18,34 @@ it("Renders without crashing", () => {
 
 
 it("Matches snapshot", () => {
-    const {asFragment} = render(<Carousel photos={TEST_IMAGES} title="Carousel Title" />);
+    const {asFragment} = render(<Carousel photos={TEST_IMAGES} title="Test Title" />);
     expect(asFragment()).toMatchSnapshot();
+});
+
+
+it("Works when you click on the left arrow", () => {
+    const {getByTestId, getByAltText, queryByAltText} = render(
+        <Carousel
+            photos={TEST_IMAGES}
+            title="images for testing"
+        />
+    );
+
+    // Move forward in carousel
+    const rightArrow = getByTestId("right-arrow");
+    fireEvent.click(rightArrow);
+
+    // Check that second image is shown and not the first
+    expect(getByAltText("testing image 2")).toBeInTheDocument();
+    expect(queryByAltText("testing image 1")).not.toBeInTheDocument();
+
+    // Move backward in carousel
+    const leftArrow = getByTestId("left-arrow");
+    fireEvent.click(leftArrow);
+
+    // Check that first image is shown and not the second
+    expect(getByAltText("testing image 1")).toBeInTheDocument();
+    expect(queryByAltText("testing image 2")).not.toBeInTheDocument();
 });
 
 
