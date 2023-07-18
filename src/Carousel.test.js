@@ -79,7 +79,7 @@ it("works when you click on the right arrow", function() {
 
 
 it("Hides left arrow when current image is the first in list", () => {
-    const {queryByTestId, getByAltText, queryByAltText} = render(
+    const {queryByTestId, getByAltText} = render(
         <Carousel
             photos={TEST_IMAGES}
             title="images for testing"
@@ -89,15 +89,39 @@ it("Hides left arrow when current image is the first in list", () => {
     // Check that the first image is shown
     expect(getByAltText("testing image 1")).toBeInTheDocument();
 
-    // Check that left arrow is present but right arrow is not
+    // Check that right arrow is present but left arrow is not
     expect(queryByTestId("left-arrow")).not.toBeInTheDocument();
     expect(queryByTestId("right-arrow")).toBeInTheDocument();
 });
 
 
-// it("Hides right arrow when current image is the last in list", () => {
+it("Hides right arrow when current image is the last in list", () => {
+    const {queryByTestId, getByAltText, getByTestId} = render(
+        <Carousel
+            photos={TEST_IMAGES}
+            title="images for testing"
+        />
+    );
 
-// });
+    const numImages = TEST_IMAGES.length;
+
+    // Check that the first image is shown initially
+    expect(getByAltText("testing image 1")).toBeInTheDocument();
+
+    // Move to final image in list
+    const rightArrow = getByTestId("right-arrow");
+    for (let i = 1; i < numImages; i++) {
+        fireEvent.click(rightArrow);
+    }
+
+    // Check that final image is shown
+    expect(getByAltText(`testing image ${numImages}`)).toBeInTheDocument();
+
+    // Check that left arrow is present but right arrow is not
+    console.log("A log here!!!!");
+    expect(rightArrow).not.toBeInTheDocument();
+    expect(queryByTestId("left-arrow")).toBeInTheDocument();
+});
 
 
 // it("Hides both arrows when only one image in list", () => {
