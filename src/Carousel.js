@@ -20,36 +20,50 @@ import Card from "./Card";
   const currCard = photos[currCardIdx];
   const total = photos.length;
 
-  //Increments currCardIdx state by 1
+  const leftArrow = <i
+    data-testid="left-arrow"
+    className="bi bi-arrow-left-circle"
+    onClick={goBackward}
+  />
+
+  const rightArrow = <i
+    data-testid="right-arrow"
+    className="bi bi-arrow-right-circle"
+    onClick={goForward}
+  />
+
   function goForward() {
     setCurrCardIdx(currCardIdx + 1);
   }
 
-  // Decrement currCardIdx state by 1
   function goBackward() {
     setCurrCardIdx(currCardIdx - 1);
+  }
+
+  function isOnFirstPhoto() {
+    return currCardIdx === 0;
+  }
+
+  function isOnLastPhoto() {
+    return currCardIdx === total - 1;
   }
 
   return (
     <div className="Carousel">
       <h1>{title}</h1>
       <div className="Carousel-main">
-        <i
-          data-testid="left-arrow"
-          className="bi bi-arrow-left-circle"
-          onClick={goBackward}
-        />
+
+        {isOnFirstPhoto() ? <></> : leftArrow}
+
         <Card
           caption={currCard.caption}
           src={currCard.src}
           currNum={currCardIdx + 1}
           totalNum={total}
         />
-        <i
-          data-testid="right-arrow"
-          className="bi bi-arrow-right-circle"
-          onClick={goForward}
-        />
+
+        {isOnLastPhoto() ? <></> : rightArrow}
+
       </div>
     </div>
   );
