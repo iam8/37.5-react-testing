@@ -4,14 +4,14 @@ import Card from "./Card";
 
 
 /** Carousel: displays images and arrows to navigate through them
- * 
+ *
  * Props:
  * - photos: array of {src, caption} objects
  * - title: string describing the collection of images
- * 
+ *
  * State:
  * - currCardIdx: integer for current card index
- * 
+ *
  * App --> Carousel --> Card
  */
  function Carousel({ photos, title }) {
@@ -30,6 +30,7 @@ import Card from "./Card";
       <h1>{title}</h1>
       <div className="Carousel-main">
         <i
+          data-testid="left-arrow"
           className="bi bi-arrow-left-circle"
           onClick={goForward}
         />
@@ -40,6 +41,7 @@ import Card from "./Card";
           totalNum={total}
         />
         <i
+          data-testid="right-arrow"
           className="bi bi-arrow-right-circle"
           onClick={goForward}
         />
