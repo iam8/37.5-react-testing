@@ -76,3 +76,30 @@ it("works when you click on the right arrow", function() {
         container.querySelector('img[alt="testing image 2"]')
     ).toBeInTheDocument();
 });
+
+
+it("Hides left arrow when current image is the first in list", () => {
+    const {queryByTestId, getByAltText, queryByAltText} = render(
+        <Carousel
+            photos={TEST_IMAGES}
+            title="images for testing"
+        />
+    );
+
+    // Check that the first image is shown
+    expect(getByAltText("testing image 1")).toBeInTheDocument();
+
+    // Check that left arrow is present but right arrow is not
+    expect(queryByTestId("left-arrow")).not.toBeInTheDocument();
+    expect(queryByTestId("right-arrow")).toBeInTheDocument();
+});
+
+
+// it("Hides right arrow when current image is the last in list", () => {
+
+// });
+
+
+// it("Hides both arrows when only one image in list", () => {
+
+// });
